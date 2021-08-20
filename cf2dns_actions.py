@@ -40,13 +40,7 @@ TTL = 600
 
 urllib3.disable_warnings()
 
-cfips = get_optimization_ip()
-if cfips == None or cfips["code"] != 200:
-    print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
-    return
-cf_cmips = cfips["info"]["CM"]
-cf_cuips = cfips["info"]["CU"]
-cf_ctips = cfips["info"]["CT"]
+cfips = null
 
 def get_optimization_ip():
     try:
@@ -118,6 +112,10 @@ def main(cloud):
     global AFFECT_NUM
     if len(DOMAINS) > 0:
         try:
+            cf_cmips = cfips["info"]["CM"]
+            cf_cuips = cfips["info"]["CU"]
+            cf_ctips = cfips["info"]["CT"]
+            
             for domain, sub_domains in DOMAINS.items():
                 for sub_domain, lines in sub_domains.items():
                     temp_cf_cmips = cf_cmips.copy()
@@ -167,6 +165,11 @@ def main(cloud):
             print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: " + str(traceback.print_exc()))
 
 if __name__ == '__main__':
+    get_optimization_ip()
+    if cfips == None or cfips["code"] != 200:
+        print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
+        return
+    
     if DNS_SERVER == 1:
         cloud = QcloudApi(SECRETID, SECRETKEY)
     elif DNS_SERVER == 2:
