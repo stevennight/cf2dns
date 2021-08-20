@@ -25,4 +25,7 @@ jobs:
           DOMAINS: ${{ secrets.DOMAINS }}
           SECRETID: ${{ secrets.SECRETID }}
           SECRETKEY: ${{ secrets.SECRETKEY }}
+          DOMAINS_ALIYUN: ${{ secrets.DOMAINS_ALIYUN }}
+          SECRETID_ALIYUN: ${{ secrets.SECRETID_ALIYUN }}
+          SECRETKEY_ALIYUN: ${{ secrets.SECRETKEY_ALIYUN }}
         run: python cf2dns_actions.py
