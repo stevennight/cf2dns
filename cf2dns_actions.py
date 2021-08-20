@@ -168,7 +168,7 @@ if __name__ == '__main__':
     get_optimization_ip()
     if cfips == None or cfips["code"] != 200:
         print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
-        exit 1
+        exit(1)
     
     if DNS_SERVER == 1:
         cloud = QcloudApi(SECRETID, SECRETKEY)
