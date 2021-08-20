@@ -110,6 +110,8 @@ def main(cloud):
     global AFFECT_NUM
     if len(DOMAINS) > 0:
         try:
+            global cfips
+            
             cf_cmips = cfips["info"]["CM"]
             cf_cuips = cfips["info"]["CU"]
             cf_ctips = cfips["info"]["CT"]
