@@ -40,8 +40,6 @@ TTL = 600
 
 urllib3.disable_warnings()
 
-cfips = get_optimization_ip()
-
 def get_optimization_ip():
     try:
         http = urllib3.PoolManager()
@@ -166,6 +164,8 @@ def main(cloud):
 
 if __name__ == '__main__':
     # 获取cloudflare ip
+    global cfips
+    cfips = get_optimization_ip()
     if cfips == None or cfips["code"] != 200:
         print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
         exit(1)
