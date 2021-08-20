@@ -177,5 +177,5 @@ if __name__ == '__main__':
     elif DNS_SERVER == 2:
         cloud = AliApi(SECRETID, SECRETKEY)
         cloud2 = AliApi(SECRETID, SECRETKEY)
-    main(cloud, DOMAIN)
-    main(cloud2, DOMAIN_ALIYUN)
+    main(cloud, DOMAINS)
+    main(cloud2, DOMAINS_ALIYUN)
