@@ -27,7 +27,7 @@ SECRETID = os.environ["SECRETID"]    #'AKIDV**********Hfo8CzfjgN'
 SECRETKEY = os.environ["SECRETKEY"]   #'ZrVs*************gqjOp1zVl'
 
 # 第二个[aliyun]
-DOMAINS_ALIYUN = os.environ["DOMAINS_ALIYUN"]
+DOMAINS_ALIYUN = json.loads(os.environ["DOMAINS_ALIYUN"])
 SECRETID_ALIYUN = os.environ["SECRETID_ALIYUN"]    #'AKIDV**********Hfo8CzfjgN'
 SECRETKEY_ALIYUN = os.environ["SECRETKEY_ALIYUN"]   #'ZrVs*************gqjOp1zVl'
 
