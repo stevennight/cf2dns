@@ -17,20 +17,36 @@ from dns.aliyun import AliApi
 
 #可以从https://shop.hostmonit.com获取
 KEY = os.environ["KEY"]  #"o1zrmHAF"
+
+# 第一个[alibabacloud]
 #CM:移动 CU:联通 CT:电信
 #修改需要更改的dnspod域名核子域名
 DOMAINS = json.loads(os.environ["DOMAINS"])  #{"hostmonit.com": {"@": ["CM","CU","CT"], "shop": ["CM", "CU", "CT"], "stock": ["CM","CU","CT"]},"4096.me": {"@": ["CM","CU","CT"], "vv": ["CM","CU","CT"]}}
 #腾讯云后台获取 https://console.cloud.tencent.com/cam/capi
 SECRETID = os.environ["SECRETID"]    #'AKIDV**********Hfo8CzfjgN'
 SECRETKEY = os.environ["SECRETKEY"]   #'ZrVs*************gqjOp1zVl'
+
+# 第二个[aliyun]
+DOMAINS_ALIYUN = os.environ["DOMAINS_ALIYUN"]
+SECRETID_ALIYUN = os.environ["SECRETID_ALIYUN"]    #'AKIDV**********Hfo8CzfjgN'
+SECRETKEY_ALIYUN = os.environ["SECRETKEY_ALIYUN"]   #'ZrVs*************gqjOp1zVl'
+
 #默认为普通版本 不用修改
-AFFECT_NUM = 2
+AFFECT_NUM = 1
 #DNS服务商 如果使用DNSPod改为1 如果使用阿里云解析改成2
 DNS_SERVER = 2
 #解析生效时间，默认为600秒 如果不是DNS付费版用户 不要修改!!!
 TTL = 600
 
 urllib3.disable_warnings()
+
+cfips = get_optimization_ip()
+if cfips == None or cfips["code"] != 200:
+    print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
+    return
+cf_cmips = cfips["info"]["CM"]
+cf_cuips = cfips["info"]["CU"]
+cf_ctips = cfips["info"]["CT"]
 
 def get_optimization_ip():
     try:
@@ -102,13 +118,6 @@ def main(cloud):
     global AFFECT_NUM
     if len(DOMAINS) > 0:
         try:
-            cfips = get_optimization_ip()
-            if cfips == None or cfips["code"] != 200:
-                print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
-                return
-            cf_cmips = cfips["info"]["CM"]
-            cf_cuips = cfips["info"]["CU"]
-            cf_ctips = cfips["info"]["CT"]
             for domain, sub_domains in DOMAINS.items():
                 for sub_domain, lines in sub_domains.items():
                     temp_cf_cmips = cf_cmips.copy()
@@ -162,4 +171,6 @@ if __name__ == '__main__':
         cloud = QcloudApi(SECRETID, SECRETKEY)
     elif DNS_SERVER == 2:
         cloud = AliApi(SECRETID, SECRETKEY)
+        cloud2 = AliApi(SECRETID, SECRETKEY)
     main(cloud)
+    main(cloud2)
