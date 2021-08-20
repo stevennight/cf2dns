@@ -106,9 +106,9 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
     except Exception as e:
             print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: " + str(traceback.print_exc()))
 
-def main(cloud):
+def main(cloud, domains):
     global AFFECT_NUM
-    if len(DOMAINS) > 0:
+    if len(domains) > 0:
         try:
             global cfips
             
@@ -116,7 +116,7 @@ def main(cloud):
             cf_cuips = cfips["info"]["CU"]
             cf_ctips = cfips["info"]["CT"]
             
-            for domain, sub_domains in DOMAINS.items():
+            for domain, sub_domains in domains.items():
                 for sub_domain, lines in sub_domains.items():
                     temp_cf_cmips = cf_cmips.copy()
                     temp_cf_cuips = cf_cuips.copy()
@@ -177,5 +177,5 @@ if __name__ == '__main__':
     elif DNS_SERVER == 2:
         cloud = AliApi(SECRETID, SECRETKEY)
         cloud2 = AliApi(SECRETID, SECRETKEY)
-    main(cloud)
-    main(cloud2)
+    main(cloud, DOMAIN)
+    main(cloud2, DOMAIN_ALIYUN)
