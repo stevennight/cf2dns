@@ -40,7 +40,7 @@ TTL = 600
 
 urllib3.disable_warnings()
 
-cfips = null
+cfips = get_optimization_ip()
 
 def get_optimization_ip():
     try:
@@ -165,7 +165,7 @@ def main(cloud):
             print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: " + str(traceback.print_exc()))
 
 if __name__ == '__main__':
-    get_optimization_ip()
+    # 获取cloudflare ip
     if cfips == None or cfips["code"] != 200:
         print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) )
         exit(1)
