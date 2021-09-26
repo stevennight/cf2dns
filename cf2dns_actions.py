@@ -64,14 +64,15 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
         print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: LINE ERROR")
         return
     try:
-        create_num = AFFECT_NUM - len(s_info)
+    	create_num = 10;
+#        create_num = AFFECT_NUM - len(s_info)
         if create_num == 0:
             for info in s_info:
                 if len(c_info) == 0:
                     break
                 cf_ip = c_info.pop(random.randint(0,len(c_info)-1))["ip"]
-                if cf_ip in str(s_info):
-                    continue
+#                if cf_ip in str(s_info):
+#                    continue
                 ret = cloud.change_record(domain, info["recordId"], sub_domain, cf_ip, "A", line, TTL)
                 if(DNS_SERVER != 1 or ret["code"] == 0):
                     print("CHANGE DNS SUCCESS: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----RECORDID: " + str(info["recordId"]) + "----VALUE: " + cf_ip )
@@ -82,8 +83,8 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
                 if len(c_info) == 0:
                     break
                 cf_ip = c_info.pop(random.randint(0,len(c_info)-1))["ip"]
-                if cf_ip in str(s_info):
-                    continue
+#                if cf_ip in str(s_info):
+#                    continue
                 ret = cloud.create_record(domain, sub_domain, cf_ip, "A", line, TTL)
                 if(DNS_SERVER != 1 or ret["code"] == 0):
                     print("CREATE DNS SUCCESS: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----VALUE: " + cf_ip )
