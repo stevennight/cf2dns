@@ -132,7 +132,7 @@ def main(cloud, domains):
                                     else:
                                         print("DELETE DNS ERROR: ----Time: "  + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+record["line"] + "----MESSAGE: " + retMsg["message"] )
                     ret = cloud.get_record(domain, 100, sub_domain, "A")
-                    print("返回："+  json.dumps(ret) + "api信息:"+ cloud.access_key_id + ',' + cloud.access_key_secret)
+                    print("返回："+  json.dumps(ret) + "api信息:"+ cloud.access_key_id + ',' + cloud.access_key_secret + ',' + domain + ',' + sub_domain)
                     if DNS_SERVER != 1 or ret["code"] == 0 :
                         if DNS_SERVER == 1 and "Free" in ret["data"]["domain"]["grade"] and AFFECT_NUM > 2:
                             AFFECT_NUM = 2
