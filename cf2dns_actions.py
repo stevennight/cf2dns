@@ -64,7 +64,7 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
         print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: LINE ERROR")
         return
     try:
-    	create_num = 10
+    	 create_num = 10;
 #        create_num = AFFECT_NUM - len(s_info)
         if create_num == 0:
             for info in s_info:
