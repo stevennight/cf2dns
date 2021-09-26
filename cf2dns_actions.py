@@ -32,7 +32,7 @@ SECRETID_ALIYUN = os.environ["SECRETID_ALIYUN"]    #'AKIDV**********Hfo8CzfjgN'
 SECRETKEY_ALIYUN = os.environ["SECRETKEY_ALIYUN"]   #'ZrVs*************gqjOp1zVl'
 
 #默认为普通版本 不用修改
-AFFECT_NUM = 2
+AFFECT_NUM = 5
 #DNS服务商 如果使用DNSPod改为1 如果使用阿里云解析改成2
 DNS_SERVER = 2
 #解析生效时间，默认为600秒 如果不是DNS付费版用户 不要修改!!!
